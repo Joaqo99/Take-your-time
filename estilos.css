@@ -1,0 +1,54 @@
+body{
+    background-color: #000;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.contenedor-reloj{
+    display: flex;
+    height: 100vh;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 24em;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+#reloj{
+    color: #999;
+    font-size: 8em;
+    width: 100%;
+}
+
+.menu-botones{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.boton{
+    padding: 2px 1.5em;
+    font-size: 20px;
+    border: 2px solid #999;
+    border-radius: 20px;
+    background-color: #000;
+    color: #999;
+    cursor: pointer;
+    font-weight: 700;
+    width: 40%;
+}
+
+
+.boton:hover{
+    border-color: #999;
+    background-color: #999;
+    color: #000;
+}
+
+.reset:hover{
+    border-color: #e22;
+    background-color: #e22;
+    color: #000;
+}
