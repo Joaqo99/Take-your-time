@@ -10,9 +10,13 @@ let tiempo_transcurrido = 0;
 const control = () =>{
     const pausado = !boton_control.classList.contains("pause");
     if (pausado){
+        boton_control.classList.remove("start")
+        boton_control.classList.add("pause")
         boton_control.textContent = "Pause"
         start();
     }else{
+        boton_control.classList.remove("pause")
+        boton_control.classList.add("start")
         boton_control.textContent = "Start"
         pause();
     }
@@ -20,15 +24,17 @@ const control = () =>{
 
 const pause = () =>{
     /* hacer algoritmo de pausa de milisegundos*/
-    clearInterval(tiempo_transcurrido);
+    clearInterval(relojero);
 }
 
 const reset = () =>{
     /* hacer algoritmo de reset de milisegundos */ 
     boton_control.classList.remove("pause");
+    boton_control.classList.add("start")
     tiempo_transcurrido = 0;
-    clearInterval(tiempo_transcurrido);
+    clearInterval(relojero);
     reloj.textContent = "00:00"
+    boton_control.textContent = "Start"
 }
 
 const start = () =>{
@@ -51,3 +57,4 @@ const calculateTime = tiempo_transcurrido =>{
 }
 
 boton_control.addEventListener("click", control)
+boton_reset.addEventListener("click", reset)
