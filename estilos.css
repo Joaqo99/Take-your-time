@@ -3,7 +3,7 @@ body{
     font-family: 'Be Vietnam Pro', sans-serif;
 }
 
-.contenedor-reloj{
+.contenedor{
     display: flex;
     height: 100vh;
     margin: auto;
@@ -54,17 +54,27 @@ body{
     color: #000;
 }
 
-@media only screen and (max-width:400px){
-.contenedor-reloj{
-    align-content: flex-end;
-}
+@media only screen and (max-width:500px){
+    .contenedor{
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .contenedor-reloj{
+        margin-top: 60px;
+    }
+
+    #reloj{
+        font-size: 6em;
+    }
 
     .menu-botones{
-        flex-wrap: wrap;
+        justify-content: space-around;
     }
 
     .boton{
-        margin: 2px 10px;
-        width: 100%;
+        width: 5em;
+        height: 5em;
+        border-radius: 50%;
+        text-align: center;
     }
 }
