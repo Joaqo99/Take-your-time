@@ -1,3 +1,7 @@
+*{
+    padding: 0%;
+    margin: 0%;
+}
 body{
     background-color: #000;
     font-family: 'Be Vietnam Pro', sans-serif;
@@ -60,7 +64,7 @@ body{
         justify-content: space-between;
     }
     .contenedor-reloj{
-        margin-top: 40px;
+        margin-top: 60px;
     }
 
     #reloj{
@@ -69,6 +73,7 @@ body{
 
     .menu-botones{
         justify-content: space-around;
+        margin-bottom: 30px;
     }
 
     .boton{
@@ -77,5 +82,10 @@ body{
         height: 5em;
         border-radius: 50%;
         text-align: center;
+    }
+
+    .reset{
+        color: #e22;
+        border-color: #e22;
     }
 }
