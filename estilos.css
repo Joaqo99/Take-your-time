@@ -60,7 +60,7 @@ body{
         justify-content: space-between;
     }
     .contenedor-reloj{
-        margin-top: 60px;
+        margin-top: 40px;
     }
 
     #reloj{
@@ -72,6 +72,7 @@ body{
     }
 
     .boton{
+        padding: 0%;
         width: 5em;
         height: 5em;
         border-radius: 50%;
