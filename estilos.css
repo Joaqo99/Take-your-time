@@ -88,4 +88,27 @@ body{
         color: #e22;
         border-color: #e22;
     }
+
+    .boton:hover{
+        border-color: #999;
+        background-color: #000;
+        color: #999;
+    }
+    
+    .reset:hover{
+        color: #e22;
+        border-color: #e22;
+    }
+
+    .boton:active{
+        border-color: #999;
+        background-color: #999;
+        color: #000;
+    }
+
+    .reset:active{
+        border-color: #e22;
+        background-color: #e22;
+        color: #000;
+    }
 }
