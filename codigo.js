@@ -40,6 +40,7 @@ for (i in lista_milisegundos_I){
 }
 /* Fin del bloque */
 
+
 const control = () =>{
     const pausado = !boton_control.classList.contains("pause");
     if (pausado){
@@ -55,28 +56,12 @@ const control = () =>{
     }
 }
 
-const pause = () =>{
-    /* hacer algoritmo de pausa de milisegundos*/
-    clearInterval(relojero);
-    clearInterval(cronometro_milisegundos);
-}
-
-const reset = () =>{
-    /* hacer algoritmo de reset de milisegundos */ 
-    boton_control.classList.remove("pause");
-    boton_control.classList.add("start")
-    tiempo_transcurrido = 0;
-    clearInterval(relojero);
-    clearInterval(cronometro_milisegundos);
-    reloj.textContent = "00:00"
-    boton_control.textContent = "Start"
-}
-
+var cronMilisegs
 const start = () =>{
     /* hacer algoritmo de milisegundos */
     let tiempo_arranque = Date.now() - tiempo_transcurrido;
 
-    var cronometro_milisegundos = setInterval(milisegs_runner, 10)
+    cronMlisegs = setInterval(milisegs_runner, 10)
     let milisegundo = 0
     function milisegs_runner(){
         if (milisegundo % 2 == 1){
@@ -93,6 +78,30 @@ const start = () =>{
     }, 1000)
 }
 
+const detener_milisegundos = ()=>{
+    clearInterval(cronMilisegs);
+    for (element of lista_milisegundos_II){
+        element.classList.remove("milisegundo-animacion-par", "milisegundo-animacion-impar")
+    }
+} 
+
+const pause = () =>{
+    /* hacer algoritmo de pausa de milisegundos*/
+    clearInterval(relojero);
+    detener_milisegundos()
+}
+
+const reset = () =>{
+    /* hacer algoritmo de reset de milisegundos */ 
+    boton_control.classList.remove("pause");
+    boton_control.classList.add("start")
+    tiempo_transcurrido = 0;
+    clearInterval(relojero);
+    detener_milisegundos()
+    reloj.textContent = "00:00"
+    boton_control.textContent = "Start"
+}
+
 const calculateTime = tiempo_transcurrido =>{
     const total_segundos = Math.floor(tiempo_transcurrido / 1000);
     const total_minutos = Math.floor(total_segundos / 60);
@@ -105,3 +114,6 @@ const calculateTime = tiempo_transcurrido =>{
 
 boton_control.addEventListener("click", control)
 boton_reset.addEventListener("click", reset)
+
+console.log(lista_milisegundos_I)
+console.log(lista_milisegundos_II)
