@@ -31,14 +31,6 @@ for (i = 0; i < 100; i++){
 
 contenedor_reloj.appendChild(fragmento)
 
-/*var lista_milisegundos_I = document.querySelectorAll(".milisegundo");
-var lista_milisegundos_II = []
-
-for (i in lista_milisegundos_I){
-    lista_milisegundos_II.push(document.getElementById(`milisegundo-${i}`))
-}*/
-
-
 
 /* Fin del bloque */
 
@@ -59,42 +51,30 @@ const control = () =>{
 }
 
 const start = () =>{
-    /* hacer algoritmo de milisegundos */
     let tiempo_arranque = Date.now() - tiempo_transcurrido;
 
-    var cronMlisegs = setInterval(milisegs_runner, 10)
+    var intervalID = setInterval(milisegs_runner, 10)
     var milisegundo = 0
     function milisegs_runner(){
         if (milisegundo % 2 == 1){
             document.getElementById(`milisegundo-${milisegundo}`).classList.add("milisegundo-animacion-impar")
         }else{
-            /*console.log(lista_milisegundos_II[milisegundo])
-            console.log(typeof(lista_milisegundos_II[milisegundo]))*/
             document.getElementById(`milisegundo-${milisegundo}`).classList.add("milisegundo-animacion-par")
         }
         milisegundo ++
-        if (milisegundo == 99){
-            clearInterval(cronMilisegs);
+        if (milisegundo == 100){
+            clearInterval(intervalID);
         }
     }
-// ------------------------------NUEVA FUNCIÓN PARA ANIMACIÓN DE MILISEGUNDOS----------------------------------
 
-
-
-
-
-
-
-
-// ------------------------------------------------------------------------------------------------------------
     relojero = setInterval( ()=>{
         tiempo_transcurrido = Date.now() - tiempo_arranque;
         reloj.textContent = calculateTime(tiempo_transcurrido);
     }, 1000)
 }
 
-const detener_milisegundos = ()=>{
-    clearInterval(cronMilisegs);
+const detener_milisegundos = (milisegundos_runner)=>{
+    clearInterval(milisegundos_runner);
     for (i = 0; i < 100; i++){
         element = document.getElementById(`milisegundo-${i}`)
         element.classList.remove("milisegundo-animacion-par", "milisegundo-animacion-impar")
