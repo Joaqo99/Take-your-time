@@ -46,7 +46,7 @@ const control = () =>{
         boton_control.classList.remove("pause")
         boton_control.classList.add("start")
         boton_control.textContent = "Start"
-        pause();
+        pause(tiempo_transcurrido);
     }
 }
 
@@ -69,7 +69,7 @@ const start = () =>{
 
     relojero = setInterval( ()=>{
         tiempo_transcurrido = Date.now() - tiempo_arranque;
-        reloj.textContent = calculateTime(tiempo_transcurrido);
+        reloj.textContent = calculateTime(tiempo_transcurrido)[0];
     }, 1000)
 }
 
@@ -81,18 +81,16 @@ const detener_milisegundos = (milisegundos_runner)=>{
     }
 } 
 
-const milisegundo_final = tiempo_transcurrido =>{
-    ultimo_miliseg = tiempo_transcurrido % 1000
-    return Math.floor(ultimo_miliseg*100)/10
-}
-
 const pause = tiempo_transcurrido =>{
     /* hacer algoritmo de pausa de milisegundos*/
     clearInterval(relojero);
     detener_milisegundos();
-    /*barrita = document.getElementById(`milisegundo-${milisegundo_final(tiempo_transcurrido)}`)
-    barrita.style.background = "#999"*/
+
+    let milisegs = calculateTime(tiempo_transcurrido)[1];
+    let milisegundo_final = Math.floor(milisegs/100)*10
+    document.querySelector(`#milisegundo-${milisegundo_final}`).classList.add("milisegundo-final")
 }
+
 
 const reset = () =>{
     /* hacer algoritmo de reset de milisegundos */ 
@@ -101,18 +99,22 @@ const reset = () =>{
     tiempo_transcurrido = 0;
     clearInterval(relojero);
     detener_milisegundos()
+    for (i = 0; i < 100; i++){
+        document.getElementById(`milisegundo-${i}`).classList.remove("milisegundo-final")
+    }
     reloj.textContent = "00:00"
     boton_control.textContent = "Start"
 }
 
 const calculateTime = tiempo_transcurrido =>{
     const total_segundos = Math.floor(tiempo_transcurrido / 1000);
+    const milisegundos = tiempo_transcurrido % (total_segundos * 1000)
     const total_minutos = Math.floor(total_segundos / 60);
 
     const display_segundos = (total_segundos % 60).toString().padStart(2, "0");
     const display_minutos = total_minutos.toString().padStart(2, "0");
 
-    return `${display_minutos}:${display_segundos}`
+    return [`${display_minutos}:${display_segundos}`, milisegundos]
 }
 
 boton_control.addEventListener("click", control)
