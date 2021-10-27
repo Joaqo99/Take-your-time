@@ -6,8 +6,9 @@ const boton_reset = document.getElementById("reset");
 
 let relojero;
 let tiempo_transcurrido = 0;
+let intervalID;
 
-/* Bloque de palitos/segunderos */
+/* Bloque de palitos/milisegundos */
 
 const fragmento = document.createDocumentFragment();
 
@@ -16,20 +17,20 @@ const g = y => 15 * Math.cos(Math.PI * y)
 
 for (i = 0; i < 100; i++){
     const palito = document.createElement("DIV"); 
-    fragmento.appendChild(palito)
+    fragmento.insertBefore(palito, null);
     palito.style.transform = `rotate(${i*3.6}deg) translate(${f(i)}em, ${-g(i)}em)`
     palito.setAttribute("class", "milisegundo")
     if (i > 50 && i % 2 == 1){
-        palito.setAttribute("id",`milisegundo-${i-50}`)
+        palito.setAttribute("id",`milisegundo${i-50}`)
     }else if (i < 50 && i % 2 == 1){
-        palito.setAttribute("id",`milisegundo-${i+50}`)
+        palito.setAttribute("id",`milisegundo${i+50}`)
     }else{
-        palito.setAttribute("id", `milisegundo-${i}`)
+        palito.setAttribute("id", `milisegundo${i}`)
     }
 
 }
 
-contenedor_reloj.appendChild(fragmento)
+contenedor_reloj.insertBefore(fragmento, reloj)
 
 
 /* Fin del bloque */
@@ -53,13 +54,13 @@ const control = () =>{
 const start = () =>{
     let tiempo_arranque = Date.now() - tiempo_transcurrido;
 
-    var intervalID = setInterval(milisegs_runner, 10)
+    intervalID = setInterval(milisegs_runner, 10)
     var milisegundo = 0
     function milisegs_runner(){
         if (milisegundo % 2 == 1){
-            document.getElementById(`milisegundo-${milisegundo}`).classList.add("milisegundo-animacion-impar")
+            document.getElementById(`milisegundo${milisegundo}`).classList.add("milisegundo-animacion-impar")
         }else{
-            document.getElementById(`milisegundo-${milisegundo}`).classList.add("milisegundo-animacion-par")
+            document.getElementById(`milisegundo${milisegundo}`).classList.add("milisegundo-animacion-par")
         }
         milisegundo ++
         if (milisegundo == 100){
@@ -70,37 +71,37 @@ const start = () =>{
     relojero = setInterval( ()=>{
         tiempo_transcurrido = Date.now() - tiempo_arranque;
         reloj.textContent = calculateTime(tiempo_transcurrido)[0];
-    }, 1000)
+    }, 10)
 }
 
-const detener_milisegundos = (milisegundos_runner)=>{
-    clearInterval(milisegundos_runner);
+const detener_milisegundos = ()=>{
+    clearInterval(intervalID);
     for (i = 0; i < 100; i++){
-        element = document.getElementById(`milisegundo-${i}`)
+        element = document.getElementById(`milisegundo${i}`)
         element.classList.remove("milisegundo-animacion-par", "milisegundo-animacion-impar")
     }
 } 
 
 const pause = tiempo_transcurrido =>{
-    /* hacer algoritmo de pausa de milisegundos*/
     clearInterval(relojero);
     detener_milisegundos();
 
     let milisegs = calculateTime(tiempo_transcurrido)[1];
-    let milisegundo_final = Math.floor(milisegs/100)*10
-    document.querySelector(`#milisegundo-${milisegundo_final}`).classList.add("milisegundo-final")
+    let milisegundo_final = Math.floor(milisegs/10)
+    console.log(milisegs)
+    console.log(milisegundo_final)
+    document.getElementById(`milisegundo${milisegundo_final}`).classList.add("milisegundo-final")
 }
 
 
 const reset = () =>{
-    /* hacer algoritmo de reset de milisegundos */ 
     boton_control.classList.remove("pause");
     boton_control.classList.add("start")
     tiempo_transcurrido = 0;
     clearInterval(relojero);
     detener_milisegundos()
     for (i = 0; i < 100; i++){
-        document.getElementById(`milisegundo-${i}`).classList.remove("milisegundo-final")
+        document.getElementById(`milisegundo${i}`).classList.remove("milisegundo-final")
     }
     reloj.textContent = "00:00"
     boton_control.textContent = "Start"
