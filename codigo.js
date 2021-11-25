@@ -53,9 +53,13 @@ const control = () =>{
 
 const start = () =>{
     let tiempo_arranque = Date.now() - tiempo_transcurrido;
-
+    var milisegundo
+    if (tiempo_transcurrido == 0){
+        milisegundo = 0
+    } else{
+        milisegundo = Math.floor(calculateTime(tiempo_transcurrido)[1]/10)
+    }
     intervalID = setInterval(milisegs_runner, 10)
-    var milisegundo = 0
     function milisegs_runner(){
         if (milisegundo % 2 == 1){
             document.getElementById(`milisegundo${milisegundo}`).classList.add("milisegundo-animacion-impar")
