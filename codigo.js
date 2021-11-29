@@ -92,8 +92,10 @@ const pause = tiempo_transcurrido =>{
 
     let milisegs = calculateTime(tiempo_transcurrido)[1];
     let milisegundo_final = Math.floor(milisegs/10)
-    console.log(milisegs)
-    console.log(milisegundo_final)
+    for (i = 0; i < 100; i++){
+        element = document.getElementById(`milisegundo${i}`)
+        element.classList.remove("milisegundo-final")
+    }
     document.getElementById(`milisegundo${milisegundo_final}`).classList.add("milisegundo-final")
 }
 
